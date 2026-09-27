@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mid-Wilshire Division — Personnel Files</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EAE3D2;
+    --paper-raised: #F4EFE2;
+    --ink: #211D16;
+    --ink-soft: #4A4436;
+    --rule: #C9BFA4;
+    --navy: #1B2734;
+    --navy-soft: #2C3B4C;
+    --brass: #A5822C;
+    --brass-bright: #C79A34;
+    --stamp-red: #8B3226;
+    --status-active: #3F6B3C;
+    --status-gone: #8B3226;
+    --status-neutral: #5A5544;
+    --shadow: rgba(27, 39, 52, 0.18);
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --paper: #1C2430;
+    --paper-raised: #232D3B;
+    --ink: #E9E3D3;
+    --ink-soft: #B7AF98;
+    --rule: #3A465A;
+    --navy: #10161E;
+    --navy-soft: #1B2531;
+    --brass: #C79A34;
+    --brass-bright: #DDB44B;
+    --stamp-red: #C05A48;
+    --status-active: #6FA86B;
+    --status-gone: #C05A48;
+    --status-neutral: #93a0a8;
+    --shadow: rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1C2430;
+      --paper-raised: #232D3B;
+      --ink: #E9E3D3;
+      --ink-soft: #B7AF98;
+      --rule: #3A465A;
+      --navy: #10161E;
+      --navy-soft: #1B2531;
+      --brass: #C79A34;
+      --brass-bright: #DDB44B;
+      --stamp-red: #C05A48;
+      --status-active: #6FA86B;
+      --status-gone: #C05A48;
+      --status-neutral: #93a0a8;
+      --shadow: rgba(0, 0, 0, 0.4);
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .display {
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  }
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ---------- Header ---------- */
+  header.masthead {
+    background: var(--navy);
+    color: #E9E3D3;
+    padding: env(safe-area-inset-top, 0px) 0 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+  .masthead-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 24px 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid var(--brass);
+  }
+  .masthead-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .badge-mark {
+    width: 42px;
+    height: 42px;
+    flex: none;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--brass-bright), var(--brass) 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.4);
+  }
+  h1.display {
+    font-size: clamp(22px, 3.4vw, 32px);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+  .masthead-sub {
+    margin: 4px 0 0;
+    font-size: 13.5px;
+    color: #B7AF98;
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+  }
+  .masthead-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #9AA6B2;
+    text-align: right;
+    line-height: 1.6;
+  }
+  .masthead-meta strong { color: var(--brass-bright); font-weight: 500; }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 24px 0;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-wrap {
+    position: relative;
+    flex: 1 1 240px;
+    min-width: 200px;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--navy-soft);
+    border: 1px solid #3A4A5C;
+    color: #E9E3D3;
+    padding: 9px 12px 9px 32px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    outline: none;
+  }
+  .search-wrap input::placeholder { color: #7A879A; }
+  .search-wrap input:focus { border-color: var(--brass); }
+  .search-wrap svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    stroke: #7A879A;
+  }
+  .filter-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+    padding: 7px 13px;
+    border-radius: 3px;
+    border: 1px solid #3A4A5C;
+    background: transparent;
+    color: #B7AF98;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .chip:hover { border-color: var(--brass); color: #E9E3D3; }
+  .chip.active {
+    background: var(--brass);
+    border-color: var(--brass);
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .toolbar-count {
+    padding: 10px 24px 4px;
+    max-width: 1180px;
+    margin: 0 auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #7A879A;
+  }
+
+  /* ---------- Main layout ---------- */
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 24px 60px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Roster list ---------- */
+  .roster {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .roster-head {
+    padding: 10px 14px;
+    background: var(--navy);
+    color: #B7AF98;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    display: flex;
+    justify-content: space-between;
+  }
+  .roster-list {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  @media (max-width: 860px) {
+    .roster-list { max-height: 46vh; }
+  }
+  .roster-item {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-family: 'Source Serif 4', serif;
+  }
+  .roster-item:last-child { border-bottom: none; }
+  .roster-item:hover { background: rgba(165, 130, 44, 0.1); }
+  .roster-item.selected {
+    background: var(--brass);
+    color: var(--navy);
+  }
+  .roster-item.selected .roster-id { color: var(--navy); opacity: 0.7; }
+  .roster-avatar {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: #fff;
+  }
+  .roster-name { font-size: 14.5px; line-height: 1.25; flex: 1; }
+  .roster-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    opacity: 0.8;
+  }
+  .roster-empty {
+    padding: 30px 16px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    font-style: italic;
+  }
+
+  /* ---------- File panel ---------- */
+  .file {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    box-shadow: 0 1px 4px var(--shadow);
+    overflow: hidden;
+  }
+  .file-top {
+    background: var(--navy);
+    color: #E9E3D3;
+    padding: 18px 24px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .file-avatar {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.25);
+  }
+  .file-heading { flex: 1; min-width: 180px; }
+  .file-name {
+    font-size: clamp(22px, 3vw, 28px);
+    margin: 0;
+    font-weight: 600;
+  }
+  .file-actor {
+    margin: 2px 0 0;
+    font-size: 13.5px;
+    color: #B7AF98;
+    font-style: italic;
+  }
+  .file-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #E9E3D3;
+  }
+  .tag-status {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+  }
+
+  .file-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .file-strip div {
+    padding: 10px 20px;
+    border-right: 1px solid var(--rule);
+    flex: 1 1 auto;
+    min-width: 140px;
+  }
+  .file-strip div:last-child { border-right: none; }
+  .file-strip .k {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+  .file-strip .v {
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+
+  .file-body {
+    padding: 22px 26px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 34px;
+  }
+  @media (max-width: 640px) {
+    .file-body { grid-template-columns: 1fr; padding: 18px 18px 26px; }
+    .file-top { padding: 16px 18px; }
+  }
+  .field h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--brass);
+    margin: 0 0 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .field p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 62ch;
+  }
+  .field.full { grid-column: 1 / -1; }
+
+  .file-footer {
+    padding: 12px 26px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+  }
+
+  footer.colophon {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.7;
+  }
+
+  ::-webkit-scrollbar { width: 9px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 5px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-title">
+      <div class="badge-mark">LAPD</div>
+      <div>
+        <h1 class="display">Mid-Wilshire Division — Personnel Files</h1>
+        <p class="masthead-sub">The Rookie · Character Encyclopedia · Bio Bible v1</p>
+      </div>
+    </div>
+    <div class="masthead-meta">
+      DATASET REF: TR-001&ndash;TR-054<br>
+      RECORDS ON FILE: <strong id="totalCount">53</strong> / 320
+    </div>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search" type="text" placeholder="Search name, actor, role...">
+    </div>
+    <div class="filter-chips" id="chips"></div>
+  </div>
+  <div class="toolbar-count" id="resultCount"></div>
+</header>
+
+<div class="wrap">
+  <div class="roster">
+    <div class="roster-head">
+      <span>ROSTER</span>
+      <span id="rosterCount"></span>
+    </div>
+    <div class="roster-list" id="rosterList"></div>
+  </div>
+
+  <div class="file" id="filePanel">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<footer class="colophon">
+  SOURCE: The_Rookie_Character_Dataset_Expanded (cleaned, 320 records) &middot; Batch 1&ndash;2: all 54 "detailed bio-ready" characters (Main, Recurring, Crossover) &middot; Recurring/Guest and Minor Guest tiers pending.
+</footer>
+
+<script>
+const CHARACTERS = [{"name": "John Nolan", "actor": "Nathan Fillion", "seasons": "S1\u2013S8", "position": "Officer \u2192 Training Officer \u2192 Sergeant", "appearance": "The show's title character \u2014 the oldest rookie in LAPD history, joining Mid-Wilshire Division in his 40s.", "personality": "Practical, warm, persistent, and quick with a joke, but genuinely empathetic under the humor.", "background": "A divorced building contractor from Pennsylvania who witnessed a bank robbery and decided, in his 40s, to reinvent his life by becoming a police officer.", "career": "Rookie \u2192 patrol officer \u2192 Training Officer \u2192 Sergeant, rising through Mid-Wilshire over eight seasons.", "relationships": "Trained under Talia Bishop, then Tim Bradford's peer as a fellow TO; close bonds with Lucy Chen, Nyla Harper, Wade Grey, and Angela Lopez; father to Henry Nolan; husband to Bailey Nune.", "storylines": "His midlife career change and the skepticism it draws; training a string of rookies; the ongoing balance between his personal life and the danger of the job; his marriage to Bailey.", "skills": "Life experience and people-reading turned into police instincts; improvisation under pressure; de-escalation.", "events": "The bank robbery that changed his path; surviving numerous high-stakes cases; his wedding to Bailey Nune.", "development": "Starts as an outsider proving he belongs, matures into one of the division's most trusted training officers and leaders.", "status": "Sergeant/Training Officer at Mid-Wilshire, married to Bailey Nune, father to Henry.", "id": "TR-001", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Lucy Chen", "actor": "Melissa O'Neil", "seasons": "S1\u2013S8", "position": "Rookie \u2192 Officer \u2192 Detective", "appearance": "One of the original rookie trio, trained by Tim Bradford; grows into a skilled undercover operative.", "personality": "Quick-witted and sincere, growing steadily more confident and assertive over the run of the show.", "background": "Joined the LAPD as a rookie in Season 1, initially underestimated by her training officer.", "career": "Rookie \u2192 Officer \u2192 detective track, building a reputation for undercover work along the way.", "relationships": "Trained by, and later in a long-running romantic relationship with, Tim Bradford (\"Chenford\"); close friendships with John Nolan and Angela Lopez; friendship/roommate history with Tamara Colins.", "storylines": "Her rookie year under Bradford; repeated undercover assignments; the slow-burn \"Chenford\" relationship arc; pursuing detective ambitions.", "skills": "Observant, empathetic, strong undercover instincts, determined under pressure.", "events": "Being kidnapped and buried alive by a serial killer in her rookie year; multiple undercover operations; the on-again evolution of her relationship with Bradford.", "development": "Moves from an eager, sometimes-overlooked rookie to a confident, respected officer and detective.", "status": "Officer/detective track at Mid-Wilshire, in an established relationship with Tim Bradford.", "id": "TR-002", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Angela Lopez", "actor": "Alyssa Diaz", "seasons": "S1\u2013S8", "position": "Training Officer \u2192 Detective \u2192 Sergeant", "appearance": "One of Mid-Wilshire's training officers, later a detective and sergeant; balances leadership with a growing family.", "personality": "Direct, practical, and confident; fiercely loyal and protective of the people she trains and loves.", "background": "A veteran LAPD officer already established as a training officer at the start of the series.", "career": "Training Officer (trains Jackson West) \u2192 Detective \u2192 Sergeant, taking on more investigative and leadership responsibility over time.", "relationships": "Married to defense attorney Wesley Evers; mother to Jack and Elijah Lopez; close professional bond with Wade Grey, Tim Bradford, Lucy Chen, John Nolan, and Nyla Harper.", "storylines": "Training Jackson West and coping with his death; her courtship and marriage to Wesley Evers; motherhood alongside demanding police work; her rise to detective and sergeant.", "skills": "Tactical judgment, mentorship, strong investigative instincts.", "events": "Jackson West's death in the line of duty; marrying Wesley; the birth of her children; her promotions.", "development": "Deepens from a hard-edged, by-the-book TO into someone who more openly balances family life with the job without losing her discipline.", "status": "Detective/Sergeant at Mid-Wilshire, married to Wesley Evers, mother of two.", "id": "TR-003", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Tim Bradford", "actor": "Eric Winter", "seasons": "S1\u2013S8", "position": "Training Officer \u2192 Sergeant \u2192 Lieutenant", "appearance": "The strictest of the original training officers, assigned Lucy Chen (and later others) as rookies.", "personality": "Disciplined, blunt, protective, and demanding \u2014 softens emotionally without losing his high standards.", "background": "A former Army veteran and exceptionally rigid LAPD training officer at the series' start, shaped in part by a difficult marriage to Isabel Bradford.", "career": "Training Officer \u2192 Sergeant \u2192 Lieutenant, moving into supervisory leadership over the course of the show.", "relationships": "Ex-husband of Isabel Bradford; long, complicated-turned-romantic relationship with Lucy Chen; close professional ties to Angela Lopez, John Nolan, and Wade Grey.", "storylines": "Training Nolan and Chen; his divorce from Isabel and her struggle with addiction; his career advancement; the \"Chenford\" relationship.", "skills": "Tactical leadership, field experience, discipline, mentorship (however hard-edged).", "events": "His divorce; Isabel's addiction storyline; becoming sergeant and later lieutenant; the development of his relationship with Chen.", "development": "Begins as an exceptionally strict training officer and gradually becomes more emotionally open while maintaining his demanding professional standards.", "status": "Sergeant/Lieutenant at Mid-Wilshire, in an established relationship with Lucy Chen.", "id": "TR-004", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Wade Grey", "actor": "Richard T. Jones", "seasons": "S1\u2013S8", "position": "Sergeant \u2192 Watch Commander / leadership", "appearance": "The senior supervisor at Mid-Wilshire, overseeing the training officers and the division's day-to-day operations.", "personality": "Authoritative with a dry sense of humor; carries the weight of responsibility for his officers heavily.", "background": "A veteran LAPD supervisor with deep institutional knowledge of the department, balancing the job with family life.", "career": "Sergeant \u2192 Watch Commander, remaining the station's central leadership figure across the series.", "relationships": "Married to Luna Grey; father to Dominique Grey; mentor figure to Angela Lopez, Tim Bradford, and John Nolan.", "storylines": "Navigating station leadership and department reform debates; mentoring the training officers; balancing family with the demands of command.", "skills": "Institutional knowledge, crisis management, leadership under pressure.", "events": "Repeated department political/reform conflicts; guiding the station through major crises and personnel changes.", "development": "Remains steady as an authority figure while showing more of his personal, protective side toward the people under his command.", "status": "Watch Commander at Mid-Wilshire, married to Luna Grey.", "id": "TR-005", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Nyla Harper", "actor": "Mekia Cox", "seasons": "S2\u2013S8", "position": "Detective \u2192 Training Officer", "appearance": "Joins as a former undercover detective returning to patrol, later becomes a training officer herself.", "personality": "Blunt, perceptive, and confident, with guardedness rooted in her undercover past.", "background": "A former undercover detective whose past assignments left her cautious about trust, now balancing motherhood with dangerous casework.", "career": "Detective (undercover) \u2192 returns to patrol \u2192 Training Officer, eventually training Celina Juarez.", "relationships": "Partner/spouse James Murray; mother to Lila and Leah Harper; close working partnership with John Nolan; strong ties to Angela Lopez, Lucy Chen, and Wade Grey.", "storylines": "Her return to patrol after undercover work; balancing motherhood with high-risk cases; training Celina Juarez.", "skills": "Undercover expertise, sharp intuition, tactical skill, resilience.", "events": "Transition back to patrol; marriage/family life with James Murray; taking on Celina as a trainee.", "development": "Moves from guarded and closed-off (a residue of undercover work) to more open as she builds family stability and a mentoring role.", "status": "Training Officer at Mid-Wilshire, married to James Murray, mother of two.", "id": "TR-006", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Wesley Evers", "actor": "Shawn Ashmore", "seasons": "S1\u2013S8", "position": "Defense Attorney \u2192 law-firm partner", "appearance": "A defense attorney whose cases and personal life repeatedly intersect with the LAPD, mainly through Angela Lopez.", "personality": "Articulate, witty, and idealistic, with a protective streak when his family is threatened.", "background": "Built a legal career as a defense attorney before his relationship with Angela Lopez drew him closer to the LAPD world.", "career": "Defense Attorney \u2192 law-firm partner, working cases that often cross paths with Mid-Wilshire's officers.", "relationships": "Husband of Angela Lopez; father to Jack and Elijah Lopez; professional overlap with John Nolan and investigators like Elijah Vestri.", "storylines": "His courtship and marriage to Angela; navigating fatherhood; legal cases that intersect with LAPD investigations.", "skills": "Legal knowledge, negotiation, persistence, empathy.", "events": "Marrying Angela; becoming a father; his most consequential defense cases tied to the show's main storylines.", "development": "Grows from Angela's love interest into a full family man and co-parent, staying idealistic even as his cases get harder.", "status": "Law-firm partner, married to Angela Lopez, father of two.", "id": "TR-007", "category": "Main", "department": "Defense attorney / LAPD legal support"}, {"name": "Bailey Nune", "actor": "Jenna Dewan", "seasons": "S3\u2013S8", "position": "Firefighter / EMT", "appearance": "A firefighter and emergency responder whose work regularly overlaps with LAPD emergency scenes.", "personality": "Confident, upbeat, and capable, with independence that occasionally strains her relationship with Nolan.", "background": "An experienced firefighter/EMT with a demanding career and a complicated personal history of her own.", "career": "Firefighter/EMT, continuing her own career even as her relationship with Nolan deepens.", "relationships": "Wife of John Nolan; close ties to the wider LAPD team through him.", "storylines": "Her relationship and eventual marriage to Nolan; balancing her firefighting career with married life; blended family dynamics.", "skills": "Emergency response, physical capability, leadership under crisis, adaptability.", "events": "Meeting and dating Nolan; their wedding; ongoing emergency-response storylines that intersect with LAPD cases.", "development": "Maintains her independence and career identity while integrating into Nolan's life and the found-family of Mid-Wilshire.", "status": "Firefighter/EMT, married to John Nolan.", "id": "TR-008", "category": "Main", "department": "Fire Department / emergency response"}, {"name": "Celina Juarez", "actor": "Lisseth Chavez", "seasons": "S4\u2013S8", "position": "Rookie \u2192 Officer", "appearance": "An unconventional rookie who leans on instinct as much as procedure, trained by Nyla Harper.", "personality": "Energetic, intuitive, and earnest, sometimes to the point of acting before fully thinking things through.", "background": "Joined Mid-Wilshire's rookie class with an unusual, instinct-driven approach to police work.", "career": "Rookie \u2192 Officer, developing professional confidence under Harper's training.", "relationships": "Trained by Nyla Harper; close with John Nolan and fellow rookies, including later trainee Miles Penn.", "storylines": "Her rookie training and the friction between her instincts and department procedure; personal growth into a more polished officer.", "skills": "Strong intuition, empathy, sharp observation, determination.", "events": "Standout cases solved through unconventional instinct; her development arc under Harper's mentorship.", "development": "Moves from a raw, unorthodox rookie to a more disciplined officer without losing the intuitive edge that sets her apart.", "status": "Officer at Mid-Wilshire.", "id": "TR-009", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Miles Penn", "actor": "Deric Augustine", "seasons": "S7\u2013S8", "position": "Rookie Officer", "appearance": "Part of the newest generation of Mid-Wilshire rookies, introduced to keep the show's training dynamic going.", "personality": "Friendly, observant, and grounded; still building confidence in the field.", "background": "A new-generation LAPD rookie navigating field training and the expectations of the veteran Mid-Wilshire team.", "career": "Rookie Officer, working through field training as the show's newest trainee.", "relationships": "Works closely with John Nolan, Celina Juarez, Smitty, and the wider Mid-Wilshire team.", "storylines": "Rookie training arcs and adjusting to the pressure of the job as one of the newer officers.", "skills": "Adaptability, teamwork, determination.", "events": "Joining Mid-Wilshire in Season 7 as part of the new rookie class.", "development": "Still early-stage \u2014 establishing himself and his confidence within the squad.", "status": "Rookie Officer at Mid-Wilshire, continuing training as of Season 8.", "id": "TR-010", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Aaron Thorsen", "actor": "Tru Valentino", "seasons": "S4\u2013S7; guest later", "position": "Rookie \u2192 Officer", "appearance": "A wealthy former social-media personality turned rookie officer, part of the show's second rookie generation.", "personality": "Charismatic, humorous, and candid, with real sensitivity underneath about how he's perceived.", "background": "Came from a background of wealth and online fame before deciding to join the LAPD, a jarring transition that fuels much of his early arc.", "career": "Rookie \u2192 Officer, working to be taken seriously despite his public-figure past.", "relationships": "Close with Lucy Chen, John Nolan, and Celina Juarez.", "storylines": "Overcoming assumptions tied to his celebrity/social-media background; his rookie training; general career growth within the department.", "skills": "Confidence, social awareness, persistence.", "events": "His shift from public life to police work; key moments proving himself to skeptical colleagues.", "development": "Moves from a figure defined by public image to a genuinely capable, loyal officer.", "status": "Officer, appearing in a reduced/guest capacity after Season 7.", "id": "TR-011", "category": "Main/Recurring", "department": "LAPD; Mid-Wilshire"}, {"name": "Jackson West", "actor": "Titus Makin Jr.", "seasons": "S1\u2013S3", "position": "Rookie Officer", "appearance": "An idealistic rookie and the son of an Internal Affairs commander, part of the original Season 1 rookie trio.", "personality": "Idealistic, earnest, and principled, often caught between institutional expectations and his own values.", "background": "The son of Percy West, an Internal Affairs commander, which puts extra scrutiny on his rookie years.", "career": "Rookie Officer, training under Angela Lopez.", "relationships": "Father, Percy West; close ties to Angela Lopez, Lucy Chen, and John Nolan.", "storylines": "Rookie training under Lopez; friction between department culture and his personal ethics; the weight of his father's reputation.", "skills": "Strong grasp of police knowledge and procedure, determination, a firm ethical compass.", "events": "Conflicts tied to police reform and institutional culture; killed during an attempted escape in the Season 4 premiere.", "development": "Consistently principled throughout his run, his death served as a turning point that shaped the show's handling of loss and reform storylines.", "status": "Deceased (Season 4 premiere).", "id": "TR-012", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Talia Bishop", "actor": "Afton Williamson", "seasons": "S1", "position": "Training Officer", "appearance": "An experienced training officer assigned to John Nolan, initially skeptical of his fitness for the job.", "personality": "Professional, direct, and composed under career pressure.", "background": "An established, competent LAPD training officer at the start of the series.", "career": "Training Officer, overseeing Nolan's earliest rookie period.", "relationships": "Professional ties to John Nolan, Angela Lopez, and Wade Grey.", "storylines": "Nolan's first training period and the professional-ethics questions that came with it.", "skills": "Training expertise, tactical knowledge, professionalism.", "events": "Training Nolan before departing Mid-Wilshire after Season 1.", "development": "Limited arc within the show itself \u2014 her exit after Season 1 left the character's story unresolved on screen.", "status": "Left Mid-Wilshire after Season 1; has not returned to the series.", "id": "TR-013", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Zoe Andersen", "actor": "Mercedes Mason", "seasons": "S1", "position": "Captain", "appearance": "The captain overseeing Mid-Wilshire during Season 1, balancing station leadership with political pressure.", "personality": "Commanding and composed, generally supportive of her officers.", "background": "An experienced LAPD captain running the Mid-Wilshire station at the start of the series.", "career": "Captain of Mid-Wilshire Division.", "relationships": "Oversaw John Nolan, Wade Grey, and the Mid-Wilshire officers.", "storylines": "Station leadership during Nolan's rookie period.", "skills": "Command experience, leadership, sound judgment.", "events": "Killed in the line of duty during Season 1.", "development": "A steady, supportive command presence throughout her short run.", "status": "Deceased (Season 1).", "id": "TR-014", "category": "Main", "department": "LAPD; Mid-Wilshire"}, {"name": "Isabel Bradford", "actor": "Mircea Monroe", "seasons": "S1, S5", "position": "Former undercover officer", "appearance": "Tim Bradford's ex-wife, a former undercover narcotics officer whose past work left lasting scars.", "personality": "Guarded and street-smart, shaped by years of undercover work.", "background": "Worked deep undercover in narcotics, an assignment that led directly into substance addiction.", "career": "Former undercover narcotics officer; later returns sober and works alongside Lucy Chen.", "relationships": "Ex-wife of Tim Bradford; working relationship with Lucy Chen.", "storylines": "Her addiction and recovery; the strain it put on her marriage to Tim; her return to undercover-adjacent work with Chen.", "skills": "Undercover tradecraft, street knowledge.", "events": "Her addiction crisis; her divorce from Tim; her sober return and partnership with Chen.", "development": "Moves from active addiction and estrangement from Tim to a hard-won, determined recovery.", "status": "Sober, occasionally works cases connected to her undercover background.", "id": "TR-015", "category": "Recurring", "department": "LAPD / former undercover narcotics"}, {"name": "Nell Forester", "actor": "Sara Rue", "seasons": "S1\u2013S2; later guest", "position": "Dispatcher", "appearance": "Mid-Wilshire's dispatcher, well-liked for helping officers land preferred calls.", "personality": "Dry, playful, and practical, with a habit of bending rules for people she likes.", "background": "Longtime LAPD dispatcher embedded in Mid-Wilshire station life.", "career": "Dispatcher, a fixture of the station's daily operations.", "relationships": "Connected to Elroy Basso; friendly rapport with Tim Bradford and the wider Mid-Wilshire officers.", "storylines": "Station relationships and dispatch-desk dynamics; occasional reappearances after her main run.", "skills": "Dispatch expertise, institutional/station knowledge, humor as a social tool.", "events": "Her central S1\u2013S2 run as dispatcher; later guest reappearances.", "development": "Stays a consistent, likable fixture rather than undergoing major arcs of her own.", "status": "Occasional guest appearance status after her main dispatcher run.", "id": "TR-016", "category": "Recurring", "department": "LAPD"}, {"name": "Ben McRee", "actor": "Currie Graham", "seasons": "S1, S3", "position": "Nolan's longtime friend", "appearance": "A wealthy longtime friend of John Nolan who gives him a place to stay when he first moves to LA.", "personality": "Friendly, affluent, and supportive, if a little naive about the dangers Nolan now faces.", "background": "A successful, well-off civilian friend from Nolan's life before the LAPD.", "career": "Private citizen; not police-affiliated.", "relationships": "Longtime friend of John Nolan; familiar with Henry Nolan.", "storylines": "Hosting Nolan during his transition to LA and rookie years.", "skills": "Business/life experience, generosity.", "events": "Housing Nolan early in the series; later leaves LA after being violently mugged.", "development": "Serves mainly as a stable presence from Nolan's old life, exiting once that chapter closes.", "status": "Left Los Angeles after Season 3.", "id": "TR-017", "category": "Recurring", "department": "Private citizen"}, {"name": "Kevin Wolfe", "actor": "Demetrius Grosse", "seasons": "S1", "position": "Detective", "appearance": "A detective involved in the investigation surrounding Isabel Bradford's undercover past.", "personality": "Professional and serious.", "background": "LAPD detective with limited screen history beyond the Isabel Bradford case.", "career": "Detective, working cases tied to Bradford's undercover history.", "relationships": "Worked alongside Isabel Bradford and Elijah Vestri.", "storylines": "The Isabel Bradford investigation.", "skills": "Investigative skill.", "events": "His role in the Season 1 Isabel Bradford case.", "development": "Minimal \u2014 a functional investigative presence rather than an arc-driven character.", "status": "Not seen after Season 1.", "id": "TR-018", "category": "Recurring", "department": "LAPD"}, {"name": "Elijah Vestri", "actor": "David DeSantos", "seasons": "S1", "position": "Detective", "appearance": "Kevin Wolfe's detective partner, assisting in early-series investigations.", "personality": "Serious and professional.", "background": "LAPD detective partnered with Kevin Wolfe.", "career": "Detective, working the Isabel investigation and related gang cases.", "relationships": "Partnered with Kevin Wolfe; connected to Mid-Wilshire detectives.", "storylines": "The Isabel Bradford investigation and associated gang cases.", "skills": "Investigative skill, field experience.", "events": "Killed in a shootout during Season 1.", "development": "Cut short by his death \u2014 a dedicated detective whose story ends abruptly.", "status": "Deceased (Season 1).", "id": "TR-019", "category": "Recurring", "department": "LAPD"}, {"name": "Henry Nolan", "actor": "Zayne Emory", "seasons": "S1\u2013S4, S6", "position": "College student", "appearance": "John Nolan's son, whose life milestones and health concerns run through his father's storyline.", "personality": "Warm, youthful, and grounded, with real independence.", "background": "John Nolan's son from his first marriage (to Sarah Nolan), navigating college life while staying close to his father.", "career": "College student.", "relationships": "Son of John Nolan; connected to Sarah Nolan and Abigail (his partner); friendly with Bailey Nune.", "storylines": "College life; his engagement to Abigail; health challenges; his evolving relationship with his father as Nolan's own life changes.", "skills": "Intelligence, independence.", "events": "His health scares; his engagement; navigating his father's remarriage.", "development": "Grows from a college-age kid processing his parents' divorce and his father's career change into a more settled young adult.", "status": "Periodic appearances tied to Nolan family storylines.", "id": "TR-020", "category": "Recurring", "department": "Student / civilian"}, {"name": "Percy West", "actor": "Michael Beach", "seasons": "S1\u2013S3, S6", "position": "Internal Affairs commander", "appearance": "Jackson West's demanding father and a senior LAPD Internal Affairs official.", "personality": "Formal, demanding, and authoritative.", "background": "A high-ranking, institutionally powerful LAPD official who holds his son to exacting standards.", "career": "Internal Affairs commander.", "relationships": "Father of Jackson West; professional friction with Wade Grey.", "storylines": "Jackson's career and the pressure of living up to his father's expectations; Internal Affairs conflicts with Mid-Wilshire.", "skills": "Institutional knowledge, command experience.", "events": "Navigating Jackson's career, and later, his death.", "development": "His arc is largely defined in relation to Jackson \u2014 a demanding father whose expectations shaped his son's principled but pressured path.", "status": "Periodic appearances tied to Internal Affairs and family storylines.", "id": "TR-021", "category": "Recurring", "department": "LAPD"}, {"name": "Quigley Smitty", "actor": "Brent Huff", "seasons": "S1\u2013S8", "position": "Officer / veteran officer", "appearance": "A long-serving Mid-Wilshire officer known for comic relief and a laid-back approach to the job.", "personality": "Laid-back, irreverent, and funny.", "background": "A veteran patrol officer who's been at Mid-Wilshire for years.", "career": "Officer, remaining in a steady, low-ambition patrol role across the show's run.", "relationships": "Friendly with Tim Bradford, John Nolan, and later Miles Penn.", "storylines": "Station life and comic-relief beats; occasional field work alongside the main cast.", "skills": "Experience, institutional knowledge of the station.", "events": "A consistent, long-running presence rather than a single defining event.", "development": "Remains steady as the station's easygoing veteran throughout.", "status": "Active officer at Mid-Wilshire as of Season 8.", "id": "TR-022", "category": "Recurring", "department": "LAPD; Mid-Wilshire"}, {"name": "Luna Grey", "actor": "Angel Parker", "seasons": "S1\u2013S8", "position": "Wade Grey's wife", "appearance": "Wade Grey's wife, a steady presence in his family life.", "personality": "Warm, candid, and grounded.", "background": "Married to Wade Grey, raising their daughter Dominique alongside his demanding LAPD career.", "career": "Not police-affiliated; primarily featured through her family role.", "relationships": "Wife of Wade Grey; mother of Dominique Grey.", "storylines": "Supporting Wade through his career pressures; parenting Dominique.", "skills": "Emotional intelligence, family support.", "events": "Ongoing family storylines tied to Wade's career and their daughter's growth.", "development": "A consistently supportive, practical anchor for Wade throughout the series.", "status": "Married to Wade Grey, appearing in ongoing family storylines.", "id": "TR-023", "category": "Recurring", "department": "Civilian"}, {"name": "Dominique Grey", "actor": "Various (recast as she ages)", "seasons": "S1\u2013S8", "position": "Wade and Luna's daughter", "appearance": "Wade and Luna Grey's daughter, growing up over the course of the series.", "personality": "Youthful and direct.", "background": "Daughter of Wade and Luna Grey.", "career": "Student, as age-appropriate to each season.", "relationships": "Daughter of Wade and Luna Grey.", "storylines": "Family and education storylines tied to the Grey household.", "skills": "Independence, family orientation.", "events": "Milestones in the Grey family's ongoing storyline.", "development": "Grows up on screen across the show's run, played by different actors as she ages.", "status": "Appears periodically in Grey family storylines.", "id": "TR-024", "category": "Recurring", "department": "Civilian"}, {"name": "Oscar Hutchinson", "actor": "Matthew Glave", "seasons": "S1\u2013S8", "position": "Inmate / recurring criminal figure", "appearance": "A recurring criminal whose repeated run-ins with the LAPD create both complications and comic tension.", "personality": "Clever, manipulative, and often played for comic effect.", "background": "A career small-time criminal with a long history of clashing with Mid-Wilshire officers.", "career": "Recurring inmate/criminal figure, not formally employed.", "relationships": "Repeated antagonistic-but-familiar dynamic with John Nolan and Mid-Wilshire officers.", "storylines": "Legal/prison troubles, schemes, and unpredictable recurring cases across multiple seasons.", "skills": "Manipulation, survival instincts.", "events": "His many run-ins with the law and the officers he's become a recurring nuisance to.", "development": "Consistently unpredictable \u2014 a running source of comic tension rather than a redemption arc.", "status": "Continues to resurface as an unpredictable recurring problem for Mid-Wilshire.", "id": "TR-025", "category": "Recurring", "department": "Civilian / criminal"}, {"name": "Jessica Russo", "actor": "Sarah Shahi", "seasons": "S1\u2013S2", "position": "Former FBI hostage negotiator", "appearance": "A former FBI hostage negotiator running her own security firm, and briefly Nolan's girlfriend.", "personality": "Confident, articulate, and pragmatic.", "background": "Built a career as an FBI hostage negotiator before moving into private security work.", "career": "Former FBI negotiator \u2192 security firm owner, later works with DHS.", "relationships": "Dated John Nolan.", "storylines": "Her relationship with Nolan; her security and federal work.", "skills": "Negotiation, security expertise, confidence under pressure.", "events": "Dating Nolan during Seasons 1\u20132; transitioning into DHS-adjacent work.", "development": "Presented as capable and independent from the start, defined more by her career expertise than personal growth on screen.", "status": "Last known working with DHS.", "id": "TR-026", "category": "Recurring", "department": "Private security / federal"}, {"name": "Grace Sawyer", "actor": "Ali Larter", "seasons": "S2", "position": "Doctor", "appearance": "A doctor who becomes part of Nolan's personal life during Season 2.", "personality": "Warm and professional.", "background": "Medical doctor whose relationship with Nolan briefly overlaps with his rookie life.", "career": "Doctor.", "relationships": "Dated John Nolan; familiar with Henry Nolan.", "storylines": "Her romance with Nolan and related medical-adjacent cases.", "skills": "Medical expertise, empathy.", "events": "Her Season 2 relationship with Nolan.", "development": "A contained, single-season relationship arc rather than an ongoing presence.", "status": "Not featured after Season 2.", "id": "TR-027", "category": "Recurring", "department": "Medical"}, {"name": "Nick Armstrong", "actor": "Harold Perrineau", "seasons": "S2\u2013S3", "position": "Detective", "appearance": "An experienced detective who initially mentors Nolan and the team before becoming a major source of conflict.", "personality": "Confident, polished, and guarded.", "background": "A seasoned Mid-Wilshire detective with deep undercover experience.", "career": "Detective, joining Mid-Wilshire as an experienced hire.", "relationships": "Mentor figure to John Nolan; worked closely with Nyla Harper and Tim Bradford.", "storylines": "His mentorship of the team, followed by revelations about compromised, corrupt criminal ties.", "skills": "Detective skills, undercover experience.", "events": "His exposure as compromised, triggering a corruption investigation.", "development": "Turns from a trusted mentor figure into a major source of conflict once his corruption is revealed.", "status": "Departed after his corruption arc concluded.", "id": "TR-028", "category": "Recurring", "department": "LAPD; Mid-Wilshire"}, {"name": "Rachel Hall", "actor": "Jasmine Mathews", "seasons": "S2, S7", "position": "Community professional", "appearance": "A community/social-work professional connected to the LAPD team through personal storylines.", "personality": "Warm and grounded.", "background": "Works in social work/nonprofit community roles.", "career": "Community professional.", "relationships": "Connected to John Nolan and the recurring Mid-Wilshire circle.", "storylines": "Community-focused and personal storylines that intersect with the main cast.", "skills": "Empathy, community knowledge.", "events": "Reappears in Season 7 after her Season 2 introduction.", "development": "A recurring but lightly developed connective character across two separated seasons.", "status": "Last appeared in Season 7.", "id": "TR-029", "category": "Recurring", "department": "Social work / nonprofit"}, {"name": "Patrice Evers", "actor": "Jane Daly", "seasons": "S2\u2013S4", "position": "Wesley's mother", "appearance": "Wesley Evers's mother, offering insight into his family background.", "personality": "Sharp, outspoken, and affectionate.", "background": "Wesley Evers's mother, with a strong personality that shapes family dynamics.", "career": "Not police/legal-affiliated; featured through family storylines.", "relationships": "Mother of Wesley Evers; interacts with Angela Lopez as Wesley's partner.", "storylines": "Family tension and wedding/relationship storylines tied to Wesley and Angela.", "skills": "Family loyalty, strong personal presence.", "events": "Appearances around Wesley's relationship milestones with Angela.", "development": "A consistently opinionated, protective presence in Wesley's family scenes.", "status": "Last appeared in Season 4.", "id": "TR-030", "category": "Recurring", "department": "Civilian"}, {"name": "Chris Sanford", "actor": "Kanoa Goo", "seasons": "S3\u2013S5", "position": "Assistant District Attorney", "appearance": "Lucy Chen's former boyfriend and a prosecutor connected to LAPD casework.", "personality": "Professional and polished.", "background": "An Assistant District Attorney who dated Lucy Chen before her relationship with Tim Bradford.", "career": "Assistant District Attorney.", "relationships": "Former boyfriend of Lucy Chen; professional overlap with Tim Bradford.", "storylines": "His relationship with Lucy prior to \"Chenford\"; prosecution cases tied to LAPD investigations.", "skills": "Legal expertise, professionalism.", "events": "Dating Lucy before she and Bradford became a couple.", "development": "Primarily defined through his relationship with Lucy rather than an independent arc.", "status": "Last appeared in Season 5.", "id": "TR-031", "category": "Recurring", "department": "Legal"}, {"name": "Tamara Colins", "actor": "Dylan Conrique", "seasons": "S3\u2013S7", "position": "Lucy Chen's friend / roommate figure", "appearance": "A young woman whose friendship with Lucy Chen becomes an important relationship outside the LAPD.", "personality": "Energetic, blunt, and playful.", "background": "Came from unstable circumstances and a history of legal trouble before becoming close with Lucy.", "career": "Civilian, working through personal and housing instability over the course of her arc.", "relationships": "Close friend of Lucy Chen; familiar with Tim Bradford.", "storylines": "Her friendship with Lucy, housing struggles, and personal growth.", "skills": "Adaptability, street smarts, loyalty.", "events": "Becoming closely integrated into Lucy's personal life and support system.", "development": "Moves from an unstable, at-risk young woman to someone more settled through her bond with Lucy.", "status": "Last confirmed appearance in Season 7.", "id": "TR-032", "category": "Recurring", "department": "Civilian"}, {"name": "James Murray", "actor": "Arjay Smith", "seasons": "S3\u2013S8", "position": "Community organizer / family man", "appearance": "Nyla Harper's partner, a community-focused figure who becomes part of her family life.", "personality": "Calm, thoughtful, and supportive.", "background": "A community organizer whose relationship with Nyla Harper grows into a family.", "career": "Community organizer.", "relationships": "Partner/spouse of Nyla Harper; father figure within the Harper family alongside Lila and Leah.", "storylines": "His romance and family-building with Nyla; balancing community work with parenting.", "skills": "Community knowledge, communication, family focus.", "events": "Building a life and family with Nyla Harper.", "development": "A steady, dependable presence who grows the Harper family unit across several seasons.", "status": "Married/partnered with Nyla Harper as of Season 8.", "id": "TR-033", "category": "Recurring", "department": "Community / civilian"}, {"name": "Monica Stevens", "actor": "Bridget Regan", "seasons": "S5\u2013S8", "position": "Attorney", "appearance": "An aggressive attorney whose cases repeatedly intersect with the LAPD.", "personality": "Polished, sharp, and assertive.", "background": "A corporate/legal attorney known for confrontational tactics.", "career": "Attorney, involved in cases that cross paths with LAPD investigations and Wesley Evers's legal world.", "relationships": "Professional overlap with Wesley Evers and the LAPD team.", "storylines": "Recurring legal battles and corporate/criminal cases that create friction with the main cast.", "skills": "Legal strategy, negotiation, persistence.", "events": "Her recurring legal clashes across Seasons 5\u20138.", "development": "Functions consistently as a sharp, sometimes morally flexible legal adversary/influence rather than softening over time.", "status": "Active recurring legal figure as of Season 8.", "id": "TR-037", "category": "Recurring", "department": "Legal / corporate"}, {"name": "Seth Ridley", "actor": "Patrick Keleher", "seasons": "S5\u2013S7", "position": "Officer / rookie", "appearance": "Part of the newer-generation patrol officers introduced alongside Miles Penn and Aaron Thorsen's cohort.", "personality": "Nervous, earnest, and occasionally comic.", "background": "A newer rookie navigating career and confidence pressures within Mid-Wilshire's younger officer group.", "career": "Officer/rookie.", "relationships": "Peer relationships with Celina Juarez, Aaron Thorsen, and Lucy Chen.", "storylines": "Rookie/officer development stories within the newer patrol ensemble.", "skills": "Adaptability, willingness to learn.", "events": "His introduction and development within the younger officer cohort in Seasons 5\u20137.", "development": "Grows in confidence as part of the newer-generation officer storylines.", "status": "Last confirmed in Season 7.", "id": "TR-038", "category": "Recurring", "department": "LAPD"}, {"name": "Elijah Stone", "actor": "Various", "seasons": "S4\u2013S5, S8", "position": "Legal figure", "appearance": "A recurring figure connected to later legal and personal storylines.", "personality": "Controlled and articulate.", "background": "Involved in legal/social matters intersecting with the LAPD team.", "career": "Legal figure.", "relationships": "Connected to Wesley Evers and the LAPD team.", "storylines": "Legal and personal cases spanning a gap of several seasons.", "skills": "Legal/social knowledge.", "events": "Reappearances in Season 8 after earlier Season 4\u20135 involvement.", "development": "Thin, non-continuous arc across widely separated seasons.", "status": "Reappeared as of Season 8.", "id": "TR-039", "category": "Recurring", "department": "Civilian / legal"}, {"name": "Abigail", "actor": "Sarah Drew (unconfirmed in source data)", "seasons": "S2\u2013S3, S7", "position": "Henry Nolan's partner", "appearance": "Henry Nolan's fianc\u00e9e/partner, appearing in Nolan family storylines.", "personality": "Warm and practical.", "background": "In a long-term relationship with Henry Nolan.", "career": "Not specified in available data.", "relationships": "Partner/fianc\u00e9e of Henry Nolan; familiar with John Nolan.", "storylines": "Her engagement to Henry and integration into the Nolan family.", "skills": "Supportiveness, practicality.", "events": "Her engagement to Henry Nolan.", "development": "Defined mainly through her relationship with Henry rather than an independent arc.", "status": "Part of Henry Nolan's life as of Season 7.", "id": "TR-040", "category": "Recurring", "department": "Civilian"}, {"name": "Donovan Town", "actor": "Various", "seasons": "S2, S4", "position": "Lila Town's husband / family figure", "appearance": "Connected to Nyla Harper through family and custody storylines involving Lila Town.", "personality": "Tense and direct.", "background": "Involved in a custody/family conflict connected to the Harper family.", "career": "Not specified in available data.", "relationships": "Husband/partner of Lila Town; tied to Nyla Harper through family conflict.", "storylines": "Family and custody conflict involving the Harper/Town family.", "skills": "Family involvement.", "events": "Custody-related conflict appearances in Seasons 2 and 4.", "development": "Defined through conflict within the Harper family storyline rather than independent growth.", "status": "Not confirmed beyond Season 4.", "id": "TR-041", "category": "Recurring", "department": "Civilian"}, {"name": "Lila Town", "actor": "Various (recast as she ages)", "seasons": "S2, S4\u2013S5, S8", "position": "Nyla Harper's daughter", "appearance": "Nyla Harper's daughter, central to her mother's family life and custody concerns.", "personality": "Youthful and direct.", "background": "Daughter of Nyla Harper, caught up in custody instability tied to Donovan Town.", "career": "Student, as age-appropriate.", "relationships": "Daughter of Nyla Harper; connected to Donovan Town and to James Murray as her mother's partner.", "storylines": "Custody, family stability, and parenting storylines within the Harper family.", "skills": "Resilience, adaptability.", "events": "Custody conflicts and family transitions across multiple seasons.", "development": "Grows up on screen through the Harper family's evolving custody and stability arc.", "status": "Appears periodically through Season 8.", "id": "TR-042", "category": "Recurring", "department": "Civilian"}, {"name": "Pete Nolan", "actor": "Various", "seasons": "Later seasons", "position": "John Nolan's half-brother", "appearance": "John Nolan's half-brother, introduced to explore Nolan's family history.", "personality": "Casual and candid.", "background": "A previously unmentioned half-brother whose appearances expand on the Nolan family history.", "career": "Not specified in available data.", "relationships": "Half-brother of John Nolan; connected to the wider Nolan family.", "storylines": "Family revelations tied to Nolan's backstory.", "skills": "Family knowledge, adaptability.", "events": "His introduction as a new family connection in later seasons.", "development": "Adds new dimension to Nolan's family history rather than following an independent arc.", "status": "Recurring in later-season Nolan family storylines.", "id": "TR-043", "category": "Recurring", "department": "Civilian"}, {"name": "Randy / Skip Tracer Randy", "actor": "Flula Borg", "seasons": "S4\u2013S8", "position": "Skip tracer", "appearance": "An eccentric skip tracer who helps Nolan and others with unusual cases.", "personality": "Eccentric and fast-talking.", "background": "A civilian skip tracer whose chaotic methods make him a memorable recurring ally.", "career": "Skip tracer / private investigator-adjacent work.", "relationships": "Works with John Nolan and the LAPD team; connected to Pete Nolan and others.", "storylines": "Comic, case-of-the-week storylines built around his skip-tracing work.", "skills": "Tracking, improvisation, persistence.", "events": "Recurring appearances helping with unusual civilian cases from Season 4 onward.", "development": "Remains a consistent, comic-relief ally throughout his run.", "status": "Active recurring ally as of Season 8.", "id": "TR-044", "category": "Recurring", "department": "Private investigator"}, {"name": "Sava Wu", "actor": "Various", "seasons": "Later seasons", "position": "Recurring civilian", "appearance": "A recurring civilian connected to Mid-Wilshire storylines in the later seasons.", "personality": "Varies by episode/storyline.", "background": "Limited background detail available in source data.", "career": "Not specified in available data.", "relationships": "Connected to Mid-Wilshire characters.", "storylines": "Case-specific stories in later seasons.", "skills": "Varies by storyline.", "events": "Not specified in available data.", "development": "Insufficient data for a defined arc \u2014 flagged for follow-up research before treating this as a finalized bio.", "status": "Recurring in later-season stories.", "id": "TR-045", "category": "Recurring", "department": "Civilian"}, {"name": "Rosalind Dyer", "actor": "Annie Wersching", "seasons": "S2\u2013S5", "position": "Serial killer", "appearance": "A highly manipulative serial killer whose crimes have lasting psychological effects on Nolan, Chen, and the LAPD team.", "personality": "Cold, controlled, and manipulative.", "background": "One of the series' most significant recurring antagonists, defined by calculated psychological manipulation.", "career": "N/A \u2014 recurring criminal antagonist.", "relationships": "Adversarial relationship with John Nolan, Lucy Chen, and Tim Bradford; connected to multiple victims and accomplices.", "storylines": "Her serial-killer investigations and psychological manipulation of the LAPD team across multiple seasons.", "skills": "Manipulation, psychological insight.", "events": "Her capture; subsequent escapes/returns through legal and criminal storylines; ultimately killed.", "development": "Remains a calculating, obsessive threat throughout her run, escalating rather than softening.", "status": "Deceased.", "id": "TR-034", "category": "Recurring", "department": "Criminal"}, {"name": "Doug Stanton", "actor": "Brandon Routh", "seasons": "S3", "position": "Training Officer", "appearance": "A training officer whose abusive treatment of Jackson West becomes a major departmental conflict.", "personality": "Rigid and confrontational.", "background": "An LAPD training officer assigned to Jackson West.", "career": "Training Officer, removed from the role after an internal investigation.", "relationships": "Trained Jackson West; clashed with Wade Grey and John Nolan.", "storylines": "Police reform and training-misconduct storylines centered on his treatment of Jackson.", "skills": "Field experience, authority (misapplied).", "events": "His removal following an investigation into his training methods.", "development": "Serves as a catalyst for the show's reform storyline rather than undergoing personal growth himself.", "status": "Removed from Mid-Wilshire after Season 3.", "id": "TR-035", "category": "Recurring", "department": "LAPD"}, {"name": "Sandra de la Cruz / La Fiera", "actor": "Camille Guaty", "seasons": "S3\u2013S4", "position": "Drug cartel leader", "appearance": "A powerful cartel leader whose pursuit of control creates major threats for Angela Lopez and the LAPD.", "personality": "Controlled and intimidating.", "background": "Leader of a drug cartel with a personal vendetta tied to Angela Lopez.", "career": "N/A \u2014 cartel leader/criminal antagonist.", "relationships": "Connected to Diego de la Cruz; adversarial relationship with Angela Lopez, John Nolan, and Nyla Harper.", "storylines": "Kidnapping plots, cartel conflict, and revenge storylines centered on Angela.", "skills": "Strategic thinking, criminal network control, ruthlessness.", "events": "Her extended cartel-conflict arc across Seasons 3\u20134.", "development": "Escalates as a major antagonist rather than being redeemed or reformed.", "status": "Story concluded within her Season 3\u20134 arc.", "id": "TR-036", "category": "Recurring", "department": "Criminal organization"}, {"name": "Simone Clark", "actor": "Niecy Nash-Betts", "seasons": "S4\u2013S5", "position": "FBI trainee / special agent", "appearance": "An older FBI trainee whose career-change story parallels Nolan's, eventually leading her spinoff series *The Rookie: Feds*.", "personality": "Bold, humorous, and outspoken.", "background": "Like Nolan, came to federal law enforcement later in life via a major career change.", "career": "FBI trainee \u2192 special agent, launching into the crossover spinoff.", "relationships": "Connected to John Nolan through their parallel career-change stories; works with Matthew Garza and Laura Stensen.", "storylines": "Her FBI training; crossover cases bridging the LAPD and FBI storylines.", "skills": "Life experience, determination, strong people skills.", "events": "Meeting Nolan; her transition into full FBI work and the *Feds* spinoff.", "development": "Mirrors Nolan's \"starting over later in life\" arc, growing from trainee to established federal agent.", "status": "FBI Special Agent, primary lead of *The Rookie: Feds*.", "id": "TR-047", "category": "Crossover", "department": "FBI"}, {"name": "Matthew Garza", "actor": "Felix Solis", "seasons": "S4\u2013S8", "position": "Special Agent in Charge", "appearance": "The FBI leader overseeing the Special Investigative Unit (SIU) featured in *The Rookie: Feds*.", "personality": "Commanding and measured.", "background": "A senior FBI agent leading the SIU crossover unit.", "career": "Special Agent in Charge, continuing into later Rookieverse crossover stories.", "relationships": "Oversees Simone Clark and Brendan Acres; maintains ties with the LAPD.", "storylines": "Leading federal task-force cases and crossover investigations with the LAPD.", "skills": "Command, investigation, strategy.", "events": "Leading the SIU through its major federal cases.", "development": "A steady leadership constant across the crossover ensemble.", "status": "Active SAC of the SIU as of Season 8.", "id": "TR-048", "category": "Crossover", "department": "FBI"}, {"name": "Brendan Acres", "actor": "Kevin Zegers", "seasons": "S5\u2013S7", "position": "Special Agent", "appearance": "A former actor turned FBI agent and colleague of Simone Clark in *The Rookie: Feds*.", "personality": "Charismatic and polished.", "background": "Left an acting career behind to become an FBI agent, carrying some public-image baggage from his past.", "career": "FBI Special Agent, working within Garza's unit.", "relationships": "Connected to Simone Clark and Laura Stensen; later romantically involved with Antoinette Benneteau.", "storylines": "Federal investigations and crossover cases within the SIU.", "skills": "FBI training, social skills, adaptability.", "events": "His transition from acting to federal law enforcement; his relationship with Antoinette Benneteau.", "development": "Works to be taken seriously as an agent despite his public-facing acting past.", "status": "Last confirmed active through Season 7.", "id": "TR-046", "category": "Crossover", "department": "FBI"}, {"name": "Laura Stensen", "actor": "Britt Robertson", "seasons": "S5\u2013S7", "position": "Special Agent", "appearance": "An FBI agent and colleague/training connection of Simone Clark's.", "personality": "Focused and analytical.", "background": "FBI agent working within Garza's SIU alongside Clark and Acres.", "career": "Special Agent.", "relationships": "Colleague of Simone Clark and Brendan Acres; reports to Matthew Garza.", "storylines": "FBI cases and crossover stories within the SIU.", "skills": "Investigation, analysis, professionalism.", "events": "Her tenure working federal cases alongside the SIU team.", "development": "A consistently professional, competent presence within the unit.", "status": "Last confirmed active through Season 7.", "id": "TR-049", "category": "Crossover", "department": "FBI"}, {"name": "Antoinette Benneteau", "actor": "Devika Bhise", "seasons": "S7", "position": "Forensic biologist / laboratory technician", "appearance": "An FBI forensic specialist and Brendan Acres's romantic interest.", "personality": "Precise and composed.", "background": "A forensic biologist working within the FBI's investigative pipeline.", "career": "Forensic biologist / lab technician.", "relationships": "Romantically involved with Brendan Acres; works within Garza's team.", "storylines": "Forensic investigations and her romance with Acres.", "skills": "Forensics, scientific analysis.", "events": "Her Season 7 relationship with Brendan Acres.", "development": "Introduced primarily through her romantic connection to Acres and her forensic role.", "status": "Last confirmed in Season 7.", "id": "TR-050", "category": "Crossover", "department": "FBI"}, {"name": "Elena Flores", "actor": "Michelle Nu\u00f1ez", "seasons": "S8", "position": "Tech analyst", "appearance": "A tech analyst and Matthew Garza's niece, supporting federal investigations.", "personality": "Smart and focused.", "background": "Joins the FBI unit as a newer tech-focused professional, with a family tie to Garza.", "career": "Tech analyst.", "relationships": "Niece of Matthew Garza.", "storylines": "Tech support for federal cases as part of the later Rookieverse ensemble.", "skills": "Technology, research, analysis.", "events": "Her introduction into the SIU in Season 8.", "development": "A newer addition still establishing her role within the unit.", "status": "Active as of Season 8.", "id": "TR-051", "category": "Crossover", "department": "FBI"}, {"name": "Carter Hope", "actor": "James Lesure", "seasons": "S4\u2013S5", "position": "Training agent", "appearance": "An FBI training agent connected to Simone Clark's early federal career.", "personality": "Serious and composed.", "background": "An experienced FBI training agent overseeing new recruits like Simone Clark.", "career": "Training agent.", "relationships": "Trained Simone Clark; works within Garza's team.", "storylines": "FBI training and early cases tied to Simone's transition into federal work.", "skills": "Training expertise, federal experience.", "events": "Overseeing Simone's early FBI training.", "development": "Functions as a demanding mentor figure during Simone's onboarding.", "status": "Last confirmed active in Season 5.", "id": "TR-052", "category": "Crossover", "department": "FBI"}, {"name": "Tracy Chiles", "actor": "Courtney Ford", "seasons": "Rookieverse (crossover)", "position": "Special Agent in Charge", "appearance": "An FBI Los Angeles leadership figure associated with the Feds side of the Rookieverse.", "personality": "Authoritative and controlled.", "background": "A senior FBI leader overseeing Los Angeles field operations.", "career": "Special Agent in Charge, overseeing LA FBI operations.", "relationships": "Works alongside Matthew Garza and the wider FBI team.", "storylines": "Federal investigations within the Rookieverse crossover framework.", "skills": "Command, federal operations.", "events": "Her oversight role within LA-based FBI operations.", "development": "A steady, high-level command presence within the crossover ensemble.", "status": "Active FBI leadership figure within the Rookieverse.", "id": "TR-054", "category": "Crossover", "department": "FBI"}];
+</script>
+<script>
+(function () {
+  var CATEGORIES = ['All', 'Main', 'Recurring', 'Crossover'];
+  var state = { query: '', category: 'All', selectedId: null };
+
+  var PALETTE = ['#8B3226', '#1B5E4F', '#2C4770', '#7A4A9E', '#A5622A', '#4A6741', '#5A5544', '#8B5A2B'];
+  function colorFor(name) {
+    var h = 0;
+    for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+    return PALETTE[h % PALETTE.length];
+  }
+  function initials(name) {
+    var parts = name.replace(/\/.*$/, '').trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return '?';
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  function statusInfo(status) {
+    var s = (status || '').toLowerCase();
+    if (s.indexOf('deceased') !== -1 || s.indexOf('killed') !== -1) {
+      return { label: 'DECEASED', color: 'var(--status-gone)' };
+    }
+    if (s.indexOf('not seen') !== -1 || s.indexOf('not confirmed') !== -1 || s.indexOf('not featured') !== -1 ||
+        s.indexOf('left') !== -1 || s.indexOf('removed') !== -1 || s.indexOf('story concluded') !== -1 ||
+        s.indexOf('last appeared') !== -1 || s.indexOf('last confirmed') !== -1) {
+      return { label: 'INACTIVE FILE', color: 'var(--status-neutral)' };
+    }
+    return { label: 'ACTIVE', color: 'var(--status-active)' };
+  }
+
+  function categoryLabel(cat) {
+    if (cat === 'Main/Recurring') return 'Main';
+    return cat;
+  }
+
+  function matches(c, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return (c.name + ' ' + c.actor + ' ' + c.position + ' ' + (c.department || '')).toLowerCase().indexOf(q) !== -1;
+  }
+
+  function filteredList() {
+    return CHARACTERS.filter(function (c) {
+      var catOk = state.category === 'All' || categoryLabel(c.category) === state.category;
+      return catOk && matches(c, state.query);
+    }).sort(function (a, b) { return a.id.localeCompare(b.id); });
+  }
+
+  function renderChips() {
+    var wrap = document.getElementById('chips');
+    wrap.innerHTML = '';
+    CATEGORIES.forEach(function (cat) {
+      var btn = document.createElement('button');
+      btn.className = 'chip' + (state.category === cat ? ' active' : '');
+      btn.textContent = cat === 'All' ? 'All' : cat;
+      btn.addEventListener('click', function () {
+        state.category = cat;
+        renderAll();
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function renderRoster() {
+    var list = filteredList();
+    var el = document.getElementById('rosterList');
+    document.getElementById('rosterCount').textContent = list.length;
+    document.getElementById('resultCount').textContent =
+      list.length + (list.length === 1 ? ' record matches' : ' records match') +
+      (state.query ? ' "' + state.query + '"' : '') +
+      (state.category !== 'All' ? ' in ' + state.category : '');
+
+    if (list.length === 0) {
+      el.innerHTML = '<div class="roster-empty">No personnel records match this search.</div>';
+      return;
+    }
+    if (!state.selectedId || !list.some(function (c) { return c.id === state.selectedId; })) {
+      state.selectedId = list[0].id;
+    }
+    el.innerHTML = '';
+    list.forEach(function (c) {
+      var btn = document.createElement('button');
+      btn.className = 'roster-item' + (c.id === state.selectedId ? ' selected' : '');
+      var avatar = document.createElement('div');
+      avatar.className = 'roster-avatar';
+      avatar.style.background = colorFor(c.name);
+      avatar.textContent = initials(c.name);
+      var nameWrap = document.createElement('div');
+      nameWrap.className = 'roster-name';
+      nameWrap.textContent = c.name;
+      var idEl = document.createElement('span');
+      idEl.className = 'roster-id';
+      idEl.textContent = c.id;
+      btn.appendChild(avatar);
+      btn.appendChild(nameWrap);
+      btn.appendChild(idEl);
+      btn.addEventListener('click', function () {
+        state.selectedId = c.id;
+        renderRoster();
+        renderFile();
+        if (window.innerWidth <= 860) {
+          document.getElementById('filePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+      el.appendChild(btn);
+    });
+  }
+
+  var FIELD_ORDER = [
+    ['appearance', 'Appearance / Role'],
+    ['personality', 'Personality'],
+    ['background', 'Background'],
+    ['career', 'Career'],
+    ['relationships', 'Relationships'],
+    ['storylines', 'Major Storylines'],
+    ['skills', 'Skills'],
+    ['events', 'Important Events'],
+    ['development', 'Character Development'],
+    ['status', 'Current Status']
+  ];
+  var FULL_WIDTH = { relationships: true, storylines: true };
+
+  function renderFile() {
+    var c = CHARACTERS.find(function (x) { return x.id === state.selectedId; });
+    var panel = document.getElementById('filePanel');
+    if (!c) { panel.innerHTML = ''; return; }
+    var st = statusInfo(c.status);
+    var color = colorFor(c.name);
+
+    var html = '';
+    html += '<div class="file-top">';
+    html += '<div class="file-avatar" style="background:' + color + '">' + initials(c.name) + '</div>';
+    html += '<div class="file-heading">';
+    html += '<p class="file-name display">' + escapeHtml(c.name) + '</p>';
+    html += '<p class="file-actor">Played by ' + escapeHtml(c.actor || 'unconfirmed') + '</p>';
+    html += '</div>';
+    html += '<div class="file-tags">';
+    html += '<span class="tag mono">' + escapeHtml(c.id) + '</span>';
+    html += '<span class="tag mono">' + escapeHtml(categoryLabel(c.category)) + '</span>';
+    html += '<span class="tag-status" style="background:' + st.color + '">' + st.label + '</span>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="file-strip">';
+    html += '<div><span class="k">Position</span><span class="v">' + escapeHtml(c.position || '\u2014') + '</span></div>';
+    html += '<div><span class="k">Seasons</span><span class="v">' + escapeHtml(c.seasons || '\u2014') + '</span></div>';
+    html += '<div><span class="k">Department / World</span><span class="v">' + escapeHtml(c.department || '\u2014') + '</span></div>';
+    html += '</div>';
+
+    html += '<div class="file-body">';
+    FIELD_ORDER.forEach(function (pair) {
+      var key = pair[0], label = pair[1];
+      var val = c[key];
+      if (!val) return;
+      html += '<div class="field' + (FULL_WIDTH[key] ? ' full' : '') + '">';
+      html += '<h3>' + label + '</h3>';
+      html += '<p>' + escapeHtml(val) + '</p>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="file-footer">FILE ' + escapeHtml(c.id) + ' &middot; MID-WILSHIRE DIVISION ARCHIVE &middot; SOURCE OF TRUTH: CLEANED CHARACTER DATASET</div>';
+
+    panel.innerHTML = html;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+
+  function renderAll() {
+    renderChips();
+    renderRoster();
+    renderFile();
+  }
+
+  document.getElementById('search').addEventListener('input', function (e) {
+    state.query = e.target.value;
+    renderRoster();
+  });
+
+  document.getElementById('totalCount').textContent = CHARACTERS.length;
+  renderAll();
+})();
+
+</script>
+</body>
+</html>
